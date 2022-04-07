@@ -1,4 +1,4 @@
-#Palculator is a Free & Open-Source GTK-Based calculator written in python
+# Palculator is a Free & Open-Source GTK-Based calculator written in python
 
 import gi
 import sys
@@ -7,9 +7,20 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 from gi.repository import Gio
 
+
 class palc(Gtk.Window):
     def __init__(self):
         super().__init__(title="palculator")
+
+        # self.register1 = ""
+        # self.register2 = ""
+        # self.register_op = None
+
+        self.full_query = ""
+
+        ans = ""
+
+        self.display = Gtk.Label()
 
         menubar = Gtk.MenuBar()
         grid = Gtk.Grid()
@@ -31,6 +42,8 @@ class palc(Gtk.Window):
         menubar.add(fmi)
 
         grid.attach(menubar, 0, 0, 1, 1)
+
+        grid.attach(self.display, 0, 1, 2, 1)
 
         self.add(grid)
 
@@ -103,7 +116,7 @@ class palc(Gtk.Window):
         self.add(self.addtogether)
 
         self.equals = Gtk.Button(label="=", halign=Gtk.Align.START)
-        self.equals.connect("clicked", self.on_button_clicked)
+        self.equals.connect("clicked", self.on_equals_clicked)
         self.add(self.equals)
 
         self.point = Gtk.Button(label=".", halign=Gtk.Align.START)
@@ -151,13 +164,57 @@ class palc(Gtk.Window):
         grid.attach(self.floaty, 0, 5, 1, 1)
 
     def on_button_clicked(self, widget):
-        print("user-press.equals")
+        if widget.get_label() == "C":
+            self.display.set_markup("")
+            self.full_query = ""
+            return
+        elif widget.get_label() == "¬":
+            self.full_query = self.full_query[0:-1]
+            self.display.set_markup(self.full_query)
+            return
+        
+        keymap = {"x":"*", "+/-":"*-1"}
+        new_entry = str(widget.get_label())
+        if new_entry in keymap:
+            new_entry = keymap[new_entry]
+        print(widget.get_label()+" was pressed")
+        self.full_query = self.full_query + new_entry
+        print(self.full_query)
+        self.display.set_markup(self.full_query)
+
+    def on_equals_clicked(self, widget):
+        ans = eval(self.full_query)
+        self.display.set_markup(str(ans))
+        print("The answer is " + str(ans))
+        self.full_query = str(ans)
+
+    # def on_button_clicked(self, widget):
+    #     print(widget.get_label()+" was pressed")
+    #
+    #     if self.register_op is None and self.register2 == "" and self.register1 == "":
+    #         self.register1 = self.register1 + str(widget.get_label())
+    #         print("Register 1 is " + self.register1)
+    #     elif self.register_op is not None and self.register2 =="" and self.register1 != "":
+    #         self.register2 = self.register2 + str(widget.get_label())
+    #         print("Register 2 is " + self.register2)
+    #     else:
+    #         self.register1 = ""
+    #         self.register2 = ""
+    #         self.register_op = None
+    #
+    # def on_button_clicked(self, widget):
+    #     print(widget.get_label() + " was pressed")
+    #
+    #     if self.register1 != "" and self.register2 == "":
+    #         self.register_op = str(widget.get_label())
+    #         print("Operation Register is " + self.register_op)
 
 def main():
     win = palc()
     win.connect("destroy", Gtk.main_quit)
     win.show_all()
     Gtk.main()
+
 
 if __name__ == "__main__":
     main()
