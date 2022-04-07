@@ -170,6 +170,12 @@ class palc(Gtk.Window):
         about.set_copyright("🄯 Copyleft GPL-v2 License")
         about.set_comments("A GTK Python 3 calculator with less than 200 lines of code.")
         about.set_website("https://github.com/yuckdevchan/palculator")
+
+        image = Gtk.Image()
+        image.set_from_file("palculator64.png")
+        pixbuf = image.get_pixbuf()
+
+        about.set_logo(pixbuf)
         about.run()
         about.destroy()
 
