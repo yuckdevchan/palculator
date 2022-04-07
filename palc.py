@@ -3,6 +3,8 @@
 import gi
 import sys
 import webbrowser
+import math
+from math import sqrt
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -23,14 +25,15 @@ class palc(Gtk.Window):
         self.about_button = Gtk.Button("About")
         self.about_button.connect("clicked", self.about_win)
 
-        self.menu_bar =Gtk.MenuBar()
+        self.menu_bar = Gtk.MenuBar()
         self.file = Gtk.MenuItem("File")
         self.edit = Gtk.MenuItem("Edit")
         self.view = Gtk.MenuItem("View")
         self.help = Gtk.MenuItem("Help")
 
         self.filemenu = Gtk.Menu()
-        self.quit = Gtk.ImageMenuItem("Quit")
+        self.quit = Gtk.ImageMenuItem(label="Quit")
+        self.quit.connect("activate", Gtk.main_quit)
         self.filemenu.append(self.quit)
         self.file.set_submenu(self.filemenu)
 
@@ -62,7 +65,7 @@ class palc(Gtk.Window):
         grid.attach(self.menu_bar, 0, 0, 4, 1)
 
         grid.attach(self.display, 0, 1, 2, 2)
-        grid.attach(self.about_button, 0, 7, 2, 1)
+        # grid.attach(self.about_button, 0, 7, 2, 1)
 
         self.add(grid)
 
@@ -154,6 +157,30 @@ class palc(Gtk.Window):
         self.square.connect("clicked", self.on_button_clicked)
         self.add(self.square)
 
+        self.cube = Gtk.Button(label="𝑥³", halign=Gtk.Align.START)
+        self.cube.connect("clicked", self.on_button_clicked)
+        self.add(self.cube)
+
+        self.sqrt = Gtk.Button(label="i√", halign=Gtk.Align.START)
+        self.sqrt.connect("clicked", self.on_button_clicked)
+        self.add(self.sqrt)
+
+        self.bracket1 = Gtk.Button(label="(", halign=Gtk.Align.START)
+        self.bracket1.connect("clicked", self.on_button_clicked)
+        self.add(self.bracket1)
+
+        self.bracket2 = Gtk.Button(label=")", halign=Gtk.Align.START)
+        self.bracket2.connect("clicked", self.on_button_clicked)
+        self.add(self.bracket2)
+
+        self.pi = Gtk.Button(label="π", halign=Gtk.Align.START)
+        self.pi.connect("clicked", self.on_button_clicked)
+        self.add(self.pi)
+
+        self.sqrt2 = Gtk.Button(label="√", halign=Gtk.Align.START)
+        self.sqrt2.connect("clicked", self.on_button_clicked)
+        self.add(self.sqrt2)
+
         grid.attach(self.seven, 0, 3, 1, 1)
         grid.attach(self.eight, 1, 3, 1, 1)
         grid.attach(self.nine, 2, 3, 1, 1)
@@ -174,6 +201,12 @@ class palc(Gtk.Window):
         grid.attach(self.floaty, 0, 6, 1, 1)
         grid.attach(self.divide, 3, 6, 1, 1)
         grid.attach(self.square, 2, 7, 1, 1)
+        grid.attach(self.cube, 1, 7, 1, 1)
+        grid.attach(self.sqrt, 0, 7, 1, 1)
+        grid.attach(self.bracket1, 2, 8, 1, 1)
+        grid.attach(self.bracket2, 3, 8, 1, 1)
+        grid.attach(self.pi, 1, 8, 1, 1)
+        grid.attach(self.sqrt2, 0, 8, 1, 1)
 
     def source_code_clicked(self, widget):
         webbrowser.open("https://github.com/yuckdevchan/palculator")
@@ -183,16 +216,18 @@ class palc(Gtk.Window):
             self.display.set_markup("")
             self.full_query = ""
             return
+        elif widget.get_label() == "i√":
+            self.full_query = sqrt(int(self.full_query))
         elif widget.get_label() == "←":
             self.full_query = self.full_query[0:-1]
             self.display.set_markup(self.full_query)
             return
 
-        keymap = {"×":"*", "+/-":"*-1", "𝑥²":"**2", "÷":"/"}
+        keymap = {"×": "*", "+/-": "*-1", "𝑥²": "**2", "÷": "/", "𝑥³": "**3", "√": "sqrt(", "π": "math.pi"}
         new_entry = str(widget.get_label())
         if new_entry in keymap:
             new_entry = keymap[new_entry]
-        print(widget.get_label()+" was pressed")
+        print(widget.get_label() + " was pressed")
         self.full_query = self.full_query + new_entry
         print(self.full_query)
         self.display.set_markup(self.full_query)
@@ -218,6 +253,7 @@ class palc(Gtk.Window):
         about.set_logo(pixbuf)
         about.run()
         about.destroy()
+
 
 def main():
     win = palc()
