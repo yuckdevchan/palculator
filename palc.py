@@ -17,29 +17,15 @@ class palc(Gtk.Window):
         ans = ""
 
         self.display = Gtk.Label()
-
-        menubar = Gtk.MenuBar()
         grid = Gtk.Grid()
 
-        fmi = Gtk.MenuItem.new_with_label("File")
+        self.about_button = Gtk.Button("About")
+        self.about_button.connect("clicked", self.about_win)
 
-        menu = Gtk.Menu()
-        emi = Gtk.MenuItem.new_with_label("Exit")
-        menu.append(emi)
+        #grid.attach(menubar, 0, 0, 1, 1)
 
-        fmi = Gtk.MenuItem.new_with_label("Help")
-
-        menu = Gtk.Menu()
-        emi = Gtk.MenuItem.new_with_label("About")
-        menu.append(emi)
-
-        fmi.set_submenu(menu)
-
-        menubar.add(fmi)
-
-        grid.attach(menubar, 0, 0, 1, 1)
-
-        grid.attach(self.display, 0, 1, 2, 1)
+        grid.attach(self.display, 0, 0, 2, 2)
+        grid.attach(self.about_button, 0, 6, 2, 1)
 
         self.add(grid)
 
@@ -95,7 +81,7 @@ class palc(Gtk.Window):
         self.reset.connect("clicked", self.on_button_clicked)
         self.add(self.reset)
 
-        self.times = Gtk.Button(label="x", halign=Gtk.Align.END)
+        self.times = Gtk.Button(label="×", halign=Gtk.Align.END)
         self.times.connect("clicked", self.on_button_clicked)
         self.add(self.times)
 
@@ -146,10 +132,10 @@ class palc(Gtk.Window):
         grid.attach(self.times, 3, 2, 1, 1)
         grid.attach(self.minus, 3, 3, 1, 1)
         grid.attach(self.addtogether, 3, 4, 1, 1)
-        grid.attach(self.equals, 3, 5, 1, 1)
+        grid.attach(self.equals, 3, 6, 1, 1)
         grid.attach(self.point, 2, 5, 1, 1)
         grid.attach(self.floaty, 0, 5, 1, 1)
-        grid.attach(self.divide, 3, 6, 1, 1)
+        grid.attach(self.divide, 3, 5, 1, 1)
         grid.attach(self.square, 2, 6, 1, 1)
 
     def on_button_clicked(self, widget):
@@ -162,7 +148,7 @@ class palc(Gtk.Window):
             self.display.set_markup(self.full_query)
             return
 
-        keymap = {"x":"*", "+/-":"*-1", "𝑥²":"**2"}
+        keymap = {"×":"*", "+/-":"*-1", "𝑥²":"**2"}
         new_entry = str(widget.get_label())
         if new_entry in keymap:
             new_entry = keymap[new_entry]
@@ -176,6 +162,16 @@ class palc(Gtk.Window):
         self.display.set_markup(str(ans))
         print("The answer is " + str(ans))
         self.full_query = str(ans)
+
+    def about_win(self, widget):
+        about = Gtk.AboutDialog()
+        about.set_program_name("palculator")
+        about.set_version("v1.0 Pre-Release 1")
+        about.set_copyright("🄯 Copyleft GPL-v2 License")
+        about.set_comments("A GTK Python 3 calculator with less than 200 lines of code.")
+        about.set_website("https://github.com/yuckdevchan/palculator")
+        about.run()
+        about.destroy()
 
 def main():
     win = palc()
