@@ -2,6 +2,7 @@
 
 import gi
 import sys
+import webbrowser
 
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
@@ -22,10 +23,46 @@ class palc(Gtk.Window):
         self.about_button = Gtk.Button("About")
         self.about_button.connect("clicked", self.about_win)
 
-        #grid.attach(menubar, 0, 0, 1, 1)
+        self.menu_bar =Gtk.MenuBar()
+        self.file = Gtk.MenuItem("File")
+        self.edit = Gtk.MenuItem("Edit")
+        self.view = Gtk.MenuItem("View")
+        self.help = Gtk.MenuItem("Help")
 
-        grid.attach(self.display, 0, 0, 2, 2)
-        grid.attach(self.about_button, 0, 6, 2, 1)
+        self.filemenu = Gtk.Menu()
+        self.quit = Gtk.ImageMenuItem("Quit")
+        self.filemenu.append(self.quit)
+        self.file.set_submenu(self.filemenu)
+
+        self.viewmenu = Gtk.Menu()
+        self.show_display = Gtk.MenuItem("Show Display")
+        self.show_numbers = Gtk.MenuItem("Show Numbers")
+        self.show_operations = Gtk.MenuItem("Show Operations")
+        self.show_menu_bar = Gtk.MenuItem("Show Menubar")
+        self.viewmenu.append(self.show_display)
+        self.viewmenu.append(self.show_numbers)
+        self.viewmenu.append(self.show_operations)
+        self.viewmenu.append(self.show_menu_bar)
+        self.view.set_submenu(self.viewmenu)
+
+        self.helpmenu = Gtk.Menu()
+        self.about = Gtk.MenuItem(label="About")
+        self.about.connect("activate", self.about_win)
+        self.source_code = Gtk.MenuItem(label="Source on Github")
+        self.source_code.connect("activate", self.source_code_clicked)
+        self.helpmenu.append(self.about)
+        self.helpmenu.append(self.source_code)
+        self.help.set_submenu(self.helpmenu)
+
+        self.menu_bar.append(self.file)
+        self.menu_bar.append(self.edit)
+        self.menu_bar.append(self.view)
+        self.menu_bar.append(self.help)
+
+        grid.attach(self.menu_bar, 0, 0, 4, 1)
+
+        grid.attach(self.display, 0, 1, 2, 2)
+        grid.attach(self.about_button, 0, 7, 2, 1)
 
         self.add(grid)
 
@@ -117,26 +154,28 @@ class palc(Gtk.Window):
         self.square.connect("clicked", self.on_button_clicked)
         self.add(self.square)
 
-        grid.attach(self.seven, 0, 2, 1, 1)
-        grid.attach(self.eight, 1, 2, 1, 1)
-        grid.attach(self.nine, 2, 2, 1, 1)
-        grid.attach(self.four, 0, 3, 1, 1)
-        grid.attach(self.five, 1, 3, 1, 1)
-        grid.attach(self.six, 2, 3, 1, 1)
-        grid.attach(self.one, 0, 4, 1, 1)
-        grid.attach(self.two, 1, 4, 1, 1)
-        grid.attach(self.three, 2, 4, 1, 1)
-        grid.attach(self.zero, 1, 5, 1, 1)
-        grid.attach(self.backspace, 3, 1, 1, 1)
-        grid.attach(self.reset, 3, 0, 1, 1)
-        grid.attach(self.times, 3, 2, 1, 1)
-        grid.attach(self.minus, 3, 3, 1, 1)
-        grid.attach(self.addtogether, 3, 4, 1, 1)
-        grid.attach(self.equals, 3, 6, 1, 1)
-        grid.attach(self.point, 2, 5, 1, 1)
-        grid.attach(self.floaty, 0, 5, 1, 1)
-        grid.attach(self.divide, 3, 5, 1, 1)
-        grid.attach(self.square, 2, 6, 1, 1)
+        grid.attach(self.seven, 0, 3, 1, 1)
+        grid.attach(self.eight, 1, 3, 1, 1)
+        grid.attach(self.nine, 2, 3, 1, 1)
+        grid.attach(self.four, 0, 4, 1, 1)
+        grid.attach(self.five, 1, 4, 1, 1)
+        grid.attach(self.six, 2, 4, 1, 1)
+        grid.attach(self.one, 0, 5, 1, 1)
+        grid.attach(self.two, 1, 5, 1, 1)
+        grid.attach(self.three, 2, 5, 1, 1)
+        grid.attach(self.zero, 1, 6, 1, 1)
+        grid.attach(self.backspace, 3, 2, 1, 1)
+        grid.attach(self.reset, 3, 1, 1, 1)
+        grid.attach(self.times, 3, 3, 1, 1)
+        grid.attach(self.minus, 3, 4, 1, 1)
+        grid.attach(self.addtogether, 3, 5, 1, 1)
+        grid.attach(self.equals, 3, 7, 1, 1)
+        grid.attach(self.point, 2, 6, 1, 1)
+        grid.attach(self.floaty, 0, 6, 1, 1)
+        grid.attach(self.divide, 3, 6, 1, 1)
+
+    def source_code_clicked(self, widget):
+        webbrowser.open("https://github.com/yuckdevchan/palculator")
 
     def on_button_clicked(self, widget):
         if widget.get_label() == "C":
@@ -148,7 +187,7 @@ class palc(Gtk.Window):
             self.display.set_markup(self.full_query)
             return
 
-        keymap = {"×":"*", "+/-":"*-1", "𝑥²":"**2"}
+        keymap = {"×":"*", "+/-":"*-1", "𝑥²":"**2", "÷":"/"}
         new_entry = str(widget.get_label())
         if new_entry in keymap:
             new_entry = keymap[new_entry]
