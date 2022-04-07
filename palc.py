@@ -173,6 +173,7 @@ class palc(Gtk.Window):
         grid.attach(self.point, 2, 6, 1, 1)
         grid.attach(self.floaty, 0, 6, 1, 1)
         grid.attach(self.divide, 3, 6, 1, 1)
+        grid.attach(self.square, 2, 7, 1, 1)
 
     def source_code_clicked(self, widget):
         webbrowser.open("https://github.com/yuckdevchan/palculator")
