@@ -12,10 +12,6 @@ class palc(Gtk.Window):
     def __init__(self):
         super().__init__(title="palculator")
 
-        # self.register1 = ""
-        # self.register2 = ""
-        # self.register_op = None
-
         self.full_query = ""
 
         ans = ""
@@ -91,7 +87,7 @@ class palc(Gtk.Window):
         self.three.connect("clicked", self.on_button_clicked)
         self.add(self.three)
 
-        self.backspace = Gtk.Button(label="¬", halign=Gtk.Align.START)
+        self.backspace = Gtk.Button(label="←", halign=Gtk.Align.START)
         self.backspace.connect("clicked", self.on_button_clicked)
         self.add(self.backspace)
 
@@ -127,53 +123,46 @@ class palc(Gtk.Window):
         self.floaty.connect("clicked", self.on_button_clicked)
         self.add(self.floaty)
 
+        self.divide = Gtk.Button(label="÷", halign=Gtk.Align.START)
+        self.divide.connect("clicked", self.on_button_clicked)
+        self.add(self.divide)
+
+        self.square = Gtk.Button(label="𝑥²", halign=Gtk.Align.START)
+        self.square.connect("clicked", self.on_button_clicked)
+        self.add(self.square)
+
         grid.attach(self.seven, 0, 2, 1, 1)
-
         grid.attach(self.eight, 1, 2, 1, 1)
-
         grid.attach(self.nine, 2, 2, 1, 1)
-
         grid.attach(self.four, 0, 3, 1, 1)
-
         grid.attach(self.five, 1, 3, 1, 1)
-
         grid.attach(self.six, 2, 3, 1, 1)
-
         grid.attach(self.one, 0, 4, 1, 1)
-
         grid.attach(self.two, 1, 4, 1, 1)
-
         grid.attach(self.three, 2, 4, 1, 1)
-
         grid.attach(self.zero, 1, 5, 1, 1)
-
         grid.attach(self.backspace, 3, 1, 1, 1)
-
         grid.attach(self.reset, 3, 0, 1, 1)
-
         grid.attach(self.times, 3, 2, 1, 1)
-
         grid.attach(self.minus, 3, 3, 1, 1)
-
         grid.attach(self.addtogether, 3, 4, 1, 1)
-
         grid.attach(self.equals, 3, 5, 1, 1)
-
         grid.attach(self.point, 2, 5, 1, 1)
-
         grid.attach(self.floaty, 0, 5, 1, 1)
+        grid.attach(self.divide, 3, 6, 1, 1)
+        grid.attach(self.square, 2, 6, 1, 1)
 
     def on_button_clicked(self, widget):
         if widget.get_label() == "C":
             self.display.set_markup("")
             self.full_query = ""
             return
-        elif widget.get_label() == "¬":
+        elif widget.get_label() == "←":
             self.full_query = self.full_query[0:-1]
             self.display.set_markup(self.full_query)
             return
-        
-        keymap = {"x":"*", "+/-":"*-1"}
+
+        keymap = {"x":"*", "+/-":"*-1", "𝑥²":"**2"}
         new_entry = str(widget.get_label())
         if new_entry in keymap:
             new_entry = keymap[new_entry]
@@ -187,27 +176,6 @@ class palc(Gtk.Window):
         self.display.set_markup(str(ans))
         print("The answer is " + str(ans))
         self.full_query = str(ans)
-
-    # def on_button_clicked(self, widget):
-    #     print(widget.get_label()+" was pressed")
-    #
-    #     if self.register_op is None and self.register2 == "" and self.register1 == "":
-    #         self.register1 = self.register1 + str(widget.get_label())
-    #         print("Register 1 is " + self.register1)
-    #     elif self.register_op is not None and self.register2 =="" and self.register1 != "":
-    #         self.register2 = self.register2 + str(widget.get_label())
-    #         print("Register 2 is " + self.register2)
-    #     else:
-    #         self.register1 = ""
-    #         self.register2 = ""
-    #         self.register_op = None
-    #
-    # def on_button_clicked(self, widget):
-    #     print(widget.get_label() + " was pressed")
-    #
-    #     if self.register1 != "" and self.register2 == "":
-    #         self.register_op = str(widget.get_label())
-    #         print("Operation Register is " + self.register_op)
 
 def main():
     win = palc()
