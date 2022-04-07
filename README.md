@@ -1,6 +1,6 @@
 # palculator
 
-# 191 Lines of code and counting...
+# 231 Lines of code and counting...
 
 palculator is a free & open-source GTK calculator for Windows, Mac and GNU / Linux written in Python.
 
