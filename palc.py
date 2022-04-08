@@ -247,7 +247,7 @@ class palc(Gtk.Window):
         self.full_query = self.full_query + new_entry
         print(self.full_query)
         self.display.set_markup(self.full_query)
-
+        
     def on_equals_clicked(self, widget):
         ans = eval(self.full_query)
         self.display.set_markup(str(ans))
