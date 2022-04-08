@@ -15,59 +15,65 @@ class palc(Gtk.Window):
     def __init__(self):
         super().__init__(title="palculator")
 
+        self.advanced_mode_on = False
         self.full_query = ""
-
         ans = ""
-
         self.display = Gtk.Label()
-        grid = Gtk.Grid()
-
+        self.grid = Gtk.Grid()
+        self.bar = Gtk.LevelBar()
+        Gtk.LevelBar.set_min_value(self.bar, 1)
+        Gtk.LevelBar.set_max_value(self.bar, 4)
+        Gtk.LevelBar.set_value(self.bar, 2)
         self.about_button = Gtk.Button("About")
         self.about_button.connect("clicked", self.about_win)
-
         self.menu_bar = Gtk.MenuBar()
         self.file = Gtk.MenuItem("File")
         self.edit = Gtk.MenuItem("Edit")
         self.view = Gtk.MenuItem("View")
         self.help = Gtk.MenuItem("Help")
 
-        self.filemenu = Gtk.Menu()
+        self.file_menu = Gtk.Menu()
         self.quit = Gtk.ImageMenuItem(label="Quit")
         self.quit.connect("activate", Gtk.main_quit)
-        self.filemenu.append(self.quit)
-        self.file.set_submenu(self.filemenu)
+        self.file_menu.append(self.quit)
+        self.file.set_submenu(self.file_menu)
 
-        self.viewmenu = Gtk.Menu()
+        self.view_menu = Gtk.Menu()
         self.show_display = Gtk.MenuItem("Show Display")
         self.show_numbers = Gtk.MenuItem("Show Numbers")
         self.show_operations = Gtk.MenuItem("Show Operations")
         self.show_menu_bar = Gtk.MenuItem("Show Menubar")
-        self.viewmenu.append(self.show_display)
-        self.viewmenu.append(self.show_numbers)
-        self.viewmenu.append(self.show_operations)
-        self.viewmenu.append(self.show_menu_bar)
-        self.view.set_submenu(self.viewmenu)
+        self.view_menu.append(self.show_display)
+        self.view_menu.append(self.show_numbers)
+        self.view_menu.append(self.show_operations)
+        self.view_menu.append(self.show_menu_bar)
+        self.view.set_submenu(self.view_menu)
 
-        self.helpmenu = Gtk.Menu()
+        self.help_menu = Gtk.Menu()
         self.about = Gtk.MenuItem(label="About")
         self.about.connect("activate", self.about_win)
         self.source_code = Gtk.MenuItem(label="Source on Github")
         self.source_code.connect("activate", self.source_code_clicked)
-        self.helpmenu.append(self.about)
-        self.helpmenu.append(self.source_code)
-        self.help.set_submenu(self.helpmenu)
+        self.help_menu.append(self.about)
+        self.help_menu.append(self.source_code)
+        self.help.set_submenu(self.help_menu)
 
         self.menu_bar.append(self.file)
         self.menu_bar.append(self.edit)
         self.menu_bar.append(self.view)
         self.menu_bar.append(self.help)
 
-        grid.attach(self.menu_bar, 0, 0, 4, 1)
+        self.grid.attach(self.menu_bar, 0, 0, 4, 1)
 
-        grid.attach(self.display, 0, 1, 2, 2)
+        self.grid.attach(self.bar, 0, 9, 4, 0)
+
+        self.grid.attach(self.display, 0, 1, 2, 2)
         # grid.attach(self.about_button, 0, 7, 2, 1)
 
-        self.add(grid)
+        self.add(self.grid)
+
+        self.advanced_mode = Gtk.CheckButton(label="Advanced Mode")
+        self.advanced_mode.connect("clicked", self.on_advanced_mode_toggled)
 
         self.plus = Gtk.Button(label="+", halign=Gtk.Align.START)
         self.plus.connect("clicked", self.on_button_clicked)
@@ -181,32 +187,42 @@ class palc(Gtk.Window):
         self.sqrt2.connect("clicked", self.on_button_clicked)
         self.add(self.sqrt2)
 
-        grid.attach(self.seven, 0, 3, 1, 1)
-        grid.attach(self.eight, 1, 3, 1, 1)
-        grid.attach(self.nine, 2, 3, 1, 1)
-        grid.attach(self.four, 0, 4, 1, 1)
-        grid.attach(self.five, 1, 4, 1, 1)
-        grid.attach(self.six, 2, 4, 1, 1)
-        grid.attach(self.one, 0, 5, 1, 1)
-        grid.attach(self.two, 1, 5, 1, 1)
-        grid.attach(self.three, 2, 5, 1, 1)
-        grid.attach(self.zero, 1, 6, 1, 1)
-        grid.attach(self.backspace, 3, 2, 1, 1)
-        grid.attach(self.reset, 3, 1, 1, 1)
-        grid.attach(self.times, 3, 3, 1, 1)
-        grid.attach(self.minus, 3, 4, 1, 1)
-        grid.attach(self.addtogether, 3, 5, 1, 1)
-        grid.attach(self.equals, 3, 7, 1, 1)
-        grid.attach(self.point, 2, 6, 1, 1)
-        grid.attach(self.floaty, 0, 6, 1, 1)
-        grid.attach(self.divide, 3, 6, 1, 1)
-        grid.attach(self.square, 2, 7, 1, 1)
-        grid.attach(self.cube, 1, 7, 1, 1)
-        grid.attach(self.sqrt, 0, 7, 1, 1)
-        grid.attach(self.bracket1, 2, 8, 1, 1)
-        grid.attach(self.bracket2, 3, 8, 1, 1)
-        grid.attach(self.pi, 1, 8, 1, 1)
-        grid.attach(self.sqrt2, 0, 8, 1, 1)
+        self.grid.attach(self.seven, 0, 3, 1, 1)
+        self.grid.attach(self.eight, 1, 3, 1, 1)
+        self.grid.attach(self.nine, 2, 3, 1, 1)
+        self.grid.attach(self.four, 0, 4, 1, 1)
+        self.grid.attach(self.five, 1, 4, 1, 1)
+        self.grid.attach(self.six, 2, 4, 1, 1)
+        self.grid.attach(self.one, 0, 5, 1, 1)
+        self.grid.attach(self.two, 1, 5, 1, 1)
+        self.grid.attach(self.three, 2, 5, 1, 1)
+        self.grid.attach(self.zero, 1, 6, 1, 1)
+        self.grid.attach(self.backspace, 3, 2, 1, 1)
+        self.grid.attach(self.reset, 3, 1, 1, 1)
+        self.grid.attach(self.times, 3, 3, 1, 1)
+        self.grid.attach(self.minus, 3, 4, 1, 1)
+        self.grid.attach(self.addtogether, 3, 5, 1, 1)
+        self.grid.attach(self.equals, 3, 7, 1, 1)
+        self.grid.attach(self.point, 2, 6, 1, 1)
+        self.grid.attach(self.floaty, 0, 6, 1, 1)
+        self.grid.attach(self.divide, 3, 6, 1, 1)
+        self.grid.attach(self.square, 2, 7, 1, 1)
+        self.grid.attach(self.cube, 1, 7, 1, 1)
+        self.grid.attach(self.sqrt, 0, 7, 1, 1)
+        self.grid.attach(self.advanced_mode, 0, 10, 3, 1)
+        self.grid.attach(self.bracket1, 2, 8, 1, 1)
+        self.grid.attach(self.bracket2, 3, 8, 1, 1)
+        self.grid.attach(self.pi, 1, 8, 1, 1)
+        self.grid.attach(self.sqrt2, 0, 8, 1, 1)
+
+        if self.advanced_mode_on:
+            pass
+
+    def on_advanced_mode_toggled(self, widget):
+        if not self.advanced_mode_on:
+            self.advanced_mode_on = True
+        elif self.advanced_mode_on:
+            self.advanced_mode_on = False
 
     def source_code_clicked(self, widget):
         webbrowser.open("https://github.com/yuckdevchan/palculator")
@@ -242,15 +258,20 @@ class palc(Gtk.Window):
         about = Gtk.AboutDialog()
         about.set_program_name("palculator")
         about.set_version("v1.0 Pre-Release 1")
-        about.set_copyright("🄯 Copyleft GPL-v2 License")
+        about.set_copyright("🄯 Copyleft 2022")
+        about.set_license("GPL-v2")
+        about.set_license_type(Gtk.License.GPL_2_0_ONLY)
         about.set_comments("A GTK Python 3 calculator with less than 200 lines of code.")
         about.set_website("https://github.com/yuckdevchan/palculator")
+        about.set_website_label("Source Code on Github")
+        about.set_authors(["yuckdevchan"])
+        about.set_artists(["yuckdevchan"])
 
         image = Gtk.Image()
         image.set_from_file("palculator64.png")
-        pixbuf = image.get_pixbuf()
+        GdkPixbuf = image.get_pixbuf()
 
-        about.set_logo(pixbuf)
+        about.set_logo(GdkPixbuf)
         about.run()
         about.destroy()
 
