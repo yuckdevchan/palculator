@@ -209,7 +209,7 @@ class palc(Gtk.Window):
         self.grid.attach(self.square, 2, 7, 1, 1)
         self.grid.attach(self.cube, 1, 7, 1, 1)
         self.grid.attach(self.sqrt, 0, 7, 1, 1)
-        self.grid.attach(self.advanced_mode, 0, 10, 3, 1)
+        # self.grid.attach(self.advanced_mode, 0, 10, 3, 1)
         self.grid.attach(self.bracket1, 2, 8, 1, 1)
         self.grid.attach(self.bracket2, 3, 8, 1, 1)
         self.grid.attach(self.pi, 1, 8, 1, 1)
