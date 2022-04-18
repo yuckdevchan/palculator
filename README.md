@@ -24,5 +24,5 @@ Then change directory into the palculator source code folder and run this comman
 
 - Tiling Window Managers do not play nicely with it
 - Resizing is a bit sussy
-- There is no divide
-- There is no square number button
+- Buttons are offset
+- No icons for backspace and positive/negative buttons
