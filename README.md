@@ -20,12 +20,12 @@ Then change directory into the palculator source code folder and run this comman
 
 `pyinstaller --onefile palc.py`
 
-###macOS specific:
-Install homebrew at https://brew.sh
-run: brew install pygobject3 gtk+3
-git clone https://github.com/yuckdevchan/palculator
-cd palculator
-python palc.py
+### macOS specific:
+- Install homebrew at https://brew.sh
+- run: brew install pygobject3 gtk+3
+- git clone https://github.com/yuckdevchan/palculator
+- cd palculator
+- python palc.py
 
 ## Known Issues
 
