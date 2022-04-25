@@ -14,7 +14,7 @@ Follow this guide on the PyGObject Documentation: https://pygobject.readthedocs.
 
 Then in the msys2 command prompt, run 
 
-`pacman -Sy pip`
+`pacman -Sy mingw-w64-python-pip`
 `pip install pyinstaller`
 
 Then change directory into the palculator source code folder and run this command:
