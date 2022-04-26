@@ -1,6 +1,6 @@
 # palculator
 
-# Under 300 Lines!
+# Under 300 Lines! Lite version is under 100!
 
 palculator is a free & open-source GTK calculator for Windows, Mac and GNU / Linux written in Python.
 
