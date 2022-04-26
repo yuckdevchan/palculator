@@ -19,7 +19,9 @@ Then in the msys2 command prompt, run
 
 Then change directory into the palculator source code folder and run this command:
 
-`pyinstaller --onefile palc.py`
+`pyinstaller palc.py`
+`cd dist`
+`./palc`
 
 ### macOS specific:
 - Install homebrew at https://brew.sh
