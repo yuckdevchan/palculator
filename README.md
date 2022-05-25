@@ -15,14 +15,14 @@ Follow this guide on the PyGObject Documentation: https://pygobject.readthedocs.
 
 Then in the msys2 command prompt, run 
 
-`pacman -Sy mingw-w64-python-pip`
-`pip install pyinstaller`
+- `pacman -Sy mingw-w64-python-pip`
+- `pip install pyinstaller`
 
 Then change directory into the palculator source code folder and run this command:
 
-`pyinstaller palc.py`
-`cd dist`
-`./palc`
+- `pyinstaller palc.py`
+- `cd dist`
+- `./palc`
 
 ### macOS specific:
 - You should be on the latest macOS
