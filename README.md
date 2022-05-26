@@ -1,6 +1,6 @@
 # palculator
 
-palculator is a free & open-source GTK calculator for Windows, Mac and GNU / Linux written in Python.
+palculator is a free & open-source [GTK](https://gtk.org) calculator for Windows, Mac and GNU / Linux written in [Python](https://python.org).
 
 ### To Compile into GNU / Linux executable file on GNU / Linux (and other unix-like, various BSDs):
 
