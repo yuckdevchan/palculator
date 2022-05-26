@@ -11,7 +11,7 @@ palculator is a free & open-source GTK calculator for Windows, Mac and GNU / Lin
 
 ### To Compile into a Microsoft Windows executable file on Microsoft Windows:
 
-Follow this guide on the PyGObject Documentation: https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started
+Follow [this guide](https://pygobject.readthedocs.io/en/latest/getting_started.html#windows-getting-started) on the PyGObject Documentation: 
 
 Then in the msys2 command prompt, run 
 
