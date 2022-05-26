@@ -1,0 +1,42 @@
+/* General CSS rules for the body of the site */
+
+body {
+  font-family: 'Noto Sans', sans-serif;
+  background-color: #22272e;
+}
+
+/* Text properties */
+
+p {
+  color: white; 
+}
+
+/* List item properties */
+
+li {
+  color: white;
+}
+
+/* Heading properties */
+
+h1 {
+  color: white; 
+}
+
+h2 {
+  color: white; 
+}
+
+h3 {
+  color: white; 
+}
+
+h4 {
+  color: white;
+}
+
+/* Hyperlink properties */
+
+a {
+  color: #539bf5;
+}
