@@ -38,5 +38,3 @@ Then change directory into the palculator source code folder and run this comman
 - Tiling Window Managers do not play nicely with it
 - Resizing is a bit sussy
 - Buttons are offset
-\
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
