@@ -1,7 +1,8 @@
 # palculator
 [![License: GPL v2](https://img.shields.io/badge/License-GPL_v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![Python 3+](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
-[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)\
+[![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
+[![Windows](https://svgshare.com/i/ZhY.svg)](https://svgshare.com/i/ZhY.svg)\
 palculator is a free & open-source [GTK](https://gtk.org) calculator for Windows, Mac and GNU / Linux written in [Python](https://python.org).
 
 ### To Compile into GNU / Linux executable file on GNU / Linux (and other unix-like, various BSDs):
