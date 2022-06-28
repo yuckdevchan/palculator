@@ -3,7 +3,8 @@
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![Linux](https://svgshare.com/i/Zhy.svg)](https://svgshare.com/i/Zhy.svg)
 [![Windows](https://badgen.net/badge/icon/windows?icon=windows&label)](https://microsoft.com/windows/)
-[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com)\
+[![GitHub](https://badgen.net/badge/icon/github?icon=github&label)](https://github.com)
+[![Open Source Love svg1](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)\
 palculator is a free & open-source [GTK](https://gtk.org) calculator for Windows, Mac and GNU / Linux written in [Python](https://python.org).
 
 ### To Compile into GNU / Linux executable file on GNU / Linux (and other unix-like, various BSDs):
