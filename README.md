@@ -8,12 +8,12 @@
 [![Open Source Love svg3](https://badges.frapsoft.com/os/v3/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)\
 palculator is a free & open-source [GTK](https://gtk.org) calculator for Windows, Mac and GNU / Linux written in [Python](https://python.org).
 
-### To Compile into GNU / Linux executable file on GNU / Linux (and other unix-like, various BSDs):
+### To install on Linux + other
 
 - `git clone https://github.com/yuckdevchan/palculator`
 - `cd palculator`
-- `sudo pip3 install pyinstaller`
-- `pyinstaller --onefile palc.py`
+- `sudo pip3 install -r requirements.txt`
+- `python3 palc.py`
 
 ### To Compile into a Microsoft Windows executable file on Microsoft Windows:
 
